@@ -9,7 +9,7 @@ To run:
 3. Standard run configuration of Tomcat 7 is sufficient to run the *.war (http://localhost:8080/).
 
 Functionality:
-1. Display the list of all users from "User" table.
+1. Display the list of all users from "User" table with paging.
 2. New Users can be added.
 3. Users are editable and can be deleted.
 

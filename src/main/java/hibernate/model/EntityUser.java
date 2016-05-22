@@ -31,16 +31,18 @@ public class EntityUser {
     }
 
     public void setName(String name) {
+        if (name.length()>25) name = name.substring(0,25);
         this.name = name;
     }
 
     @Basic
-    @Column(name = "age", nullable = false)
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
 
     public void setAge(int age) {
+        if (String.valueOf(age).isEmpty()|| age<0 ) age = 0;
         this.age = age;
     }
 

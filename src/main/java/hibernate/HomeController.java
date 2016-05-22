@@ -3,10 +3,12 @@ package hibernate;
 import hibernate.dao.UserDAO;
 import hibernate.model.EntityUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +24,26 @@ public class HomeController {
     private UserDAO userDao;
 
     @RequestMapping("/")
-    public ModelAndView handleRequest() throws Exception {
+    public ModelAndView handleRequest(@RequestParam(required = false) Integer page) throws Exception {
         List<EntityUser> listUsers = userDao.list();
         ModelAndView model = new ModelAndView("UserList");
-        model.addObject("userList", listUsers);
+
+        PagedListHolder<EntityUser> pagedListHolder = new PagedListHolder<EntityUser>(listUsers);
+        pagedListHolder.setPageSize(20);
+        model.addObject("maxPages", pagedListHolder.getPageCount());
+
+        if(page==null || page < 1 || page > pagedListHolder.getPageCount())page=1;
+
+
+        model.addObject("page", page);
+        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+            pagedListHolder.setPage(0);
+            model.addObject("userList", pagedListHolder.getPageList());
+        }
+        else if(page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page-1);
+            model.addObject("userList", pagedListHolder.getPageList());
+        }        //model.addObject("userList", listUsers);
         return model;
     }
 
