@@ -2,6 +2,7 @@ package hibernate.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "User", schema = "test")
@@ -54,13 +55,17 @@ public class EntityUser {
     }
 
     @Basic
-    @Column(name = "createDate", nullable = false)
+    @Column(name = "createDate")
     public Timestamp getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
+        if  (createDate==null || ! (createDate instanceof Timestamp)) this.createDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
+        else {
+            this.createDate = createDate;
+        }
+
     }
 
     @Override
