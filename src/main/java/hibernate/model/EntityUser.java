@@ -54,7 +54,6 @@ public class EntityUser {
     }
 
     @Basic
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createDate", nullable = false)
     public Timestamp getCreateDate() {
         return createDate;
