@@ -48,8 +48,6 @@ public class HomeController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteUser(HttpServletRequest request) {
         int userId = Integer.parseInt(request.getParameter("id"));
-        String userName = request.getParameter("name");
-        String createDate = request.getParameter("createDate");
         userDao.delete(userId);
         return new ModelAndView("redirect:/");
     }
