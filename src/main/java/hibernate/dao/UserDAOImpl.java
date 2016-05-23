@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -37,6 +38,25 @@ public class UserDAOImpl implements UserDAO {
 	public void delete(int id) {
 		EntityUser userToDelete = get(id);
 		sessionFactory.getCurrentSession().delete(userToDelete);
+	}
+
+	@Override
+	@Transactional
+	public List<EntityUser> getName(EntityUser user) {
+		int age  = user.getAge();
+		List<EntityUser> listUser= list();
+		List<EntityUser> listResult = new ArrayList<EntityUser>();
+		for (EntityUser user1: listUser) {
+			if (user1.getAge()==age)
+				listResult.add(user1);
+		}
+
+		//System.out.println(listResult.size());
+		if (!listResult.isEmpty()) {
+			return listResult;
+		}
+
+		return null;
 	}
 
 	@Override

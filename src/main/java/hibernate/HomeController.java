@@ -43,7 +43,23 @@ public class HomeController {
         else if(page <= pagedListHolder.getPageCount()) {
             pagedListHolder.setPage(page-1);
             model.addObject("userList", pagedListHolder.getPageList());
-        }        //model.addObject("userList", listUsers);
+        }
+        return model;
+    }
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView search() {
+        ModelAndView model =  new ModelAndView("UserSearch");
+        EntityUser user = new EntityUser();
+        model.addObject("user", user);
+        return model;
+    }
+
+    @RequestMapping(value = "/searchUser", method = RequestMethod.POST)
+    public ModelAndView searchUser(@ModelAttribute EntityUser user) {
+        List<EntityUser> listUsers = userDao.getName(user);
+        ModelAndView model =  new ModelAndView("UserSearchResult");
+        model.addObject("userList", listUsers);
+        System.out.println(listUsers.get(0).getName());
         return model;
     }
 

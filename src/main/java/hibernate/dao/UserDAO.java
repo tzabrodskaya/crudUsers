@@ -12,4 +12,6 @@ public interface UserDAO {
 	public void saveOrUpdate(EntityUser user);
 
 	public void delete(int id);
+
+	List<EntityUser> getName(EntityUser user);
 }
