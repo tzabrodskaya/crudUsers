@@ -6,7 +6,7 @@ To run:
 2. After project import (Maven) configure connection to your MySQL db in ApplicationContextConfig (default is localhost:3306/test root/root)
 3. Sql scripts for table creation, sample data import, delete are placed under resources/.
 4. Run Maven task 'install' to generate war file.
-3. Standard run configuration of Tomcat 7 is sufficient to run the *.war (http://localhost:8080/).
+3. Standard run configuration of Tomcat 7 is sufficient to run the generated in target/ *.war (http://localhost:8080/).
 
 Functionality:
 1. Display the list of all users from "User" table with paging.
